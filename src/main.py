@@ -29,24 +29,26 @@ from src.common import (
 )
 
 def main_page():
-    ip_addr = st.context.headers.get('X-Forwarded-For', "None provided!")
+    ip_addr = st.context.headers.get('X-Forwarded-For', "?")
+    user_agent = st.context.headers.get('User-Agent', "?")
+    lang = st.context.headers.get('Accept-Language', "?")
     # print(f"RUNNING for IP address: {ip_addr}")
     # cprint("\n---> RERUN! <---\n", Colors.YELLOW)
-    cprint(f"RUNNING for IP address: {ip_addr}", Colors.YELLOW)
+    # cprint(f"RUNNING for IP address: {ip_addr}", Colors.YELLOW)
+    cprint(f"RUNNING for: {ip_addr} - {lang} - {user_agent}", Colors.YELLOW)
 
     cmp_header()
 
-    if os.getenv("DEBUG"):
-        st.write(":orange[DEBUG]")
-    else:
-        st.write(":orange[PRODUCTION]")
-
-    st.write(f"The Secret is: {os.getenv('SECRET')}")
-
-
-    st.write("hello, there!")
     st.sidebar.header("", divider="rainbow")
 
+    if os.getenv("DEBUG"):
+        with st.sidebar:
+            st.write(":orange[DEBUG]")
+            st.write( st.context.cookies )
+            st.write( st.context.headers )
+    # else:
+    #     st.write(":orange[PRODUCTION]")
 
-    st.write( st.context.cookies )
-    st.write( st.context.headers )
+    # st.write(f"The Secret is: {os.getenv('SECRET')}")
+
+    st.write("not found")
