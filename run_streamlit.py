@@ -1,6 +1,8 @@
 if __name__ == "__main__":
-    import dotenv
-    dotenv.load_dotenv()
+    # instead of doing this - becasue we're running in Docker... just user `--env-file` when we just the container...
+    # import dotenv
+    # dotenv.load_dotenv()
+
 
     # TODO - move this into settings
     # import os

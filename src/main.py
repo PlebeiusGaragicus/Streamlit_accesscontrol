@@ -29,8 +29,10 @@ from src.common import (
 )
 
 def main_page():
-    cprint("\n---> RERUN! <---\n", Colors.YELLOW)
-    # print("RUNNING")
+    ip_addr = st.context.headers.get('X-Forwarded-For', "None provided!")
+    # print(f"RUNNING for IP address: {ip_addr}")
+    # cprint("\n---> RERUN! <---\n", Colors.YELLOW)
+    cprint(f"RUNNING for IP address: {ip_addr}", Colors.YELLOW)
 
     cmp_header()
 
@@ -39,6 +41,8 @@ def main_page():
     else:
         st.write(":orange[PRODUCTION]")
 
+    st.write(f"The Secret is: {os.getenv('SECRET')}")
+
 
     st.write("hello, there!")
     st.sidebar.header("", divider="rainbow")
@@ -46,5 +50,3 @@ def main_page():
 
     st.write( st.context.cookies )
     st.write( st.context.headers )
-
-    # st.write()
