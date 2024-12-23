@@ -27,23 +27,3 @@ services:
     # Custom command to specify the configuration flags you'd like to pass
     command: ["streamlit", "run", "run_streamlit.py", "--server.port=8501", "--server.address=0.0.0.0", "--server.headless=true"]
     # "--logger.level=debug"
-
-
-
-
-##################### CLOUDFLARED #####################
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    container_name: cloudflared_tunnel
-
-    # network_mode: service:streamlit_accesscontrol
-
-    environment:
-      TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN}
-
-    command: tunnel run # tunnel --loglevel debug run
-
-    depends_on:
-      - streamlit_accesscontrol  # Ensure Cloudflared waits for Open WebUI to be available before starting
-
-    restart: unless-stopped
